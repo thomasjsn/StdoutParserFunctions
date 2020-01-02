@@ -1,0 +1,24 @@
+{
+    "name": "StdoutParserFunctions",
+    "author": "Thomas Jensen",
+    "version": "0.1.0",
+    "url": "https://github.com/thomasjsn/StdoutParserFunctions",
+    "descriptionmsg": "stdout_desc",
+    "license-name": "GPL-2.0-or-later",
+    "type": "parserhook",
+    "MessagesDirs": {
+        "StdoutParserFunctions": [
+            "i18n"
+        ]
+    },
+    "AutoloadClasses": {
+        "StdoutParserFunctionsHooks": "src/StdoutParserFunctionsHooks.php"
+    },
+    "ExtensionMessagesFiles": {
+        "StdoutParserFunctionsMagic": "StdoutParserFunctions.i18n.php"
+    },
+    "Hooks": {
+        "ParserFirstCallInit": "StdoutParserFunctionsHooks::onParserFirstCallInit"
+    },
+    "manifest_version": 1
+}
