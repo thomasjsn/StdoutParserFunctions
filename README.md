@@ -2,13 +2,21 @@
 
 Custom MediaWiki parserhook extension for https://www.stdout.no
 
+## Installation
+* Clone this repository in s directory called `StdoutParserFunctions` in your `extensions/` folder.
+* Add the following code at the bottom of your `LocalSettings.php`:
+```
+wfLoadExtension( 'StdoutParserFunctions' );
+```
+* Done! – Navigate to Special:Version on your wiki to verify that the extension is successfully installed.
+
 ## Function hooks
 
 ### `htmlvideo`
 Insert HTML5 video element.
 
 ```
-{{#htmlvideo: Exhaust-fan-smoke-test|variables (not required)}}
+{{#htmlvideo: Exhaust-fan-smoke-test|t=3|w=640px}}
 ```
 
 Variables:
