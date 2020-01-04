@@ -16,14 +16,13 @@ class StdoutParserFunctionsHooks {
         if (! array_key_exists('t', $params)) $params['t'] = 3;
         if (! array_key_exists('w', $params)) $params['w'] = '640px';
 
-        if (is_numeric($params['w'])) {
-            $params['w'] = floor($params['w'] * (16/9)) . 'px';
-        }
+        $dir = $param1;
+        $file = explode('/', $param1)[0];
 
         $output = "<div style=\"max-width:${params['w']}\">";
-        $output .= "<video width=\"100%\" height=\"auto\" poster=\"https://video.stdout.no/$param1/${param1}_${params['t']}.jpg\" controls preload=\"metadata\">";
-        $output .= "<source src=\"https://video.stdout.no/$param1/$param1.webm\" type=\"video/webm; codecs=vp9,vorbis\">";
-        $output .= "<source src=\"https://video.stdout.no/$param1/$param1.mp4\" type=\"video/mp4\">";
+        $output .= "<video width=\"100%\" height=\"auto\" poster=\"https://video.stdout.no/$dir/${file}_${params['t']}.jpg\" controls preload=\"metadata\">";
+        $output .= "<source src=\"https://video.stdout.no/$dir/$file.webm\" type=\"video/webm; codecs=vp9,vorbis\">";
+        $output .= "<source src=\"https://video.stdout.no/$dir/$file.mp4\" type=\"video/mp4\">";
         $output .= "</video>";
 
         if (array_key_exists('yt', $params)) {

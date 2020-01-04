@@ -1,4 +1,4 @@
-# StdoutParserFunctions
+ tdoutParserFunctions
 
 Custom MediaWiki parserhook extension for https://www.stdout.no
 
@@ -16,7 +16,19 @@ wfLoadExtension( 'StdoutParserFunctions' );
 Insert HTML5 video element.
 
 ```
-{{#htmlvideo: Exhaust-fan-smoke-test|t=3|w=640px}}
+{{#htmlvideo: Video-file-without-extension(/sub-dir)|t=3|w=640px}}
+```
+
+Expected directory structure;
+```
+/VID_20191118_222156/(240p/)
+    VID_20191118_222156_1.jpg
+    VID_20191118_222156_2.jpg
+    VID_20191118_222156_3.jpg
+    VID_20191118_222156_4.jpg
+    VID_20191118_222156_5.jpg
+    VID_20191118_222156.mp4
+    VID_20191118_222156.webm
 ```
 
 Variables:
