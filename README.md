@@ -1,4 +1,4 @@
- tdoutParserFunctions
+# StdoutParserFunctions
 
 Custom MediaWiki parserhook extension for https://www.stdout.no
 
