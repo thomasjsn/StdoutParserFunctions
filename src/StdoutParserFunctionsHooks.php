@@ -19,7 +19,7 @@ class StdoutParserFunctionsHooks {
         $dir = $param1;
         $file = explode('/', $param1)[0];
 
-        $output = "<div style=\"max-width:${params['w']}\">";
+        $output = "<div style=\"max-width:${params['w']};padding-bottom:10px\">";
         $output .= "<video width=\"100%\" height=\"auto\" poster=\"https://video.stdout.no/$dir/${file}_${params['t']}.jpg\" controls preload=\"metadata\">";
         $output .= "<source src=\"https://video.stdout.no/$dir/$file.webm\" type=\"video/webm; codecs=vp9,vorbis\">";
         $output .= "<source src=\"https://video.stdout.no/$dir/$file.mp4\" type=\"video/mp4\">";
