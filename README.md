@@ -44,3 +44,6 @@ Insert project parts list from json file.
 ```
 {{#parts-list: serialno}}
 ```
+
+## Author
+[Thomas Jensen](https://thomas.stdout.no)
