@@ -11,5 +11,5 @@ $magicWords = [];
  */
 $magicWords['en'] = [
     'htmlvideo' => [ 0, 'htmlvideo' ],
-    'parts-list' => [ 0, 'parts-list' ],
+    'partslist' => [ 0, 'partslist' ],
 ];

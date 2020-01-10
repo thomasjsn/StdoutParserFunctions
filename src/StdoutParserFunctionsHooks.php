@@ -5,7 +5,7 @@ class StdoutParserFunctionsHooks {
     public static function onParserFirstCallInit( Parser $parser )
     {
         $parser->setFunctionHook( 'htmlvideo', [ self::class, 'renderHtmlVideo' ] );
-        $parser->setFunctionHook( 'parts-list', [ self::class, 'renderPartsList' ] );
+        $parser->setFunctionHook( 'partslist', [ self::class, 'renderPartsList' ] );
     }
 
 
@@ -48,10 +48,19 @@ class StdoutParserFunctionsHooks {
 
         foreach ($parts as $part)
         {
-            $output[] = sprintf('|\'\'\'%s\'\'\'%s || %s',
-                strval($part['q'] + 0), // remove decimals if zero
-                $part['unit'] == 'ea' ? '' : ' <small>' . $part['unit'] . '</small>',
-                html_entity_decode($part['title'])
+            $unitConvert = [
+                'ea' => '×',
+                'cm2' => 'cm<sup>2</sup>'
+            ];
+            $unit = strtr($part['unit'], $unitConvert);
+
+            $title = html_entity_decode($part['title']);
+            if (! is_null($part['url'])) {
+                $title = sprintf('[%s %s]', $part['url'], $title);
+            }
+
+            $output[] = sprintf('|\'\'\'%s\'\'\' <small>%s</small> || %s',
+                $part['q'], $unit, $title
             );
 
             $output[] = '|-';

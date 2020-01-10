@@ -16,7 +16,7 @@ wfLoadExtension( 'StdoutParserFunctions' );
 Insert HTML5 video element.
 
 ```
-{{#htmlvideo: Video-file-without-extension(/sub-dir)|t=3|w=640px}}
+{{#htmlvideo: Video-file-without-extension(/subdir)|t=3|w=640px}}
 ```
 
 Expected directory structure;
@@ -38,11 +38,11 @@ Variables:
 
 Variables are separated by '|', and none are required.
 
-### `parts-list`
+### `partslist`
 Insert project parts list from json file.
 
 ```
-{{#parts-list: serialno}}
+{{#partslist: serialno}}
 ```
 
 ## Author
