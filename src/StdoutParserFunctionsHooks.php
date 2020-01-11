@@ -38,6 +38,9 @@ class StdoutParserFunctionsHooks {
 
     public static function renderPartsList( Parser $parser, $param1 = '') {
         $json = file_get_contents('/var/lib/parts-json/' . $param1 . '.json');
+        if (empty($json)) {
+            return 'ERROR: ' . $param1 . '.json not found or empty!';
+        }
         $parts = json_decode($json, true);
 
         $output = [];
