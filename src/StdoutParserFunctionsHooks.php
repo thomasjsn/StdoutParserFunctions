@@ -14,13 +14,18 @@ class StdoutParserFunctionsHooks {
         parse_str(implode('&', array_slice(func_get_args(), 2)), $params);
 
         if (! array_key_exists('t', $params)) $params['t'] = 3;
-        if (! array_key_exists('w', $params)) $params['w'] = '640px';
+        if (! array_key_exists('w', $params)) $params['w'] = '640';
+        if (! array_key_exists('r', $params)) $params['r'] = '16:9';
+
+        $r = explode(':', $params['r']);
+        $w = str_replace('px', '', $params['w']);
+        $h = $w / ($r[0] / $r[1]);
 
         $dir = $param1;
         $file = explode('/', $param1)[0];
 
-        $output = "<div style=\"max-width:${params['w']};margin-bottom:1em\">";
-        $output .= "<video width=\"100%\" height=\"auto\" poster=\"https://video.stdout.no/$dir/${file}_${params['t']}.jpg\" controls preload=\"metadata\">";
+        $output = "<div style=\"margin-bottom:1em\">";
+        $output .= "<video width=\"$w\" height=\"$h\" poster=\"https://video.stdout.no/$dir/${file}_${params['t']}.jpg\" controls preload=\"metadata\">";
         $output .= "<source src=\"https://video.stdout.no/$dir/$file.webm\" type=\"video/webm; codecs=vp9,vorbis\">";
         $output .= "<source src=\"https://video.stdout.no/$dir/$file.mp4\" type=\"video/mp4\">";
         $output .= "</video>";

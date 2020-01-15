@@ -16,7 +16,7 @@ wfLoadExtension( 'StdoutParserFunctions' );
 Insert HTML5 video element.
 
 ```
-{{#htmlvideo: Video-file-without-extension(/subdir)|t=3|w=640px}}
+{{#htmlvideo: Video-file-without-extension(/subdir)|t=3|w=640}}
 ```
 
 Expected directory structure;
@@ -33,7 +33,8 @@ Expected directory structure;
 
 Variables:
 * `t`: thumbnail number; default 3
-* `w`: video max width; default 640px
+* `w`: video max width; default 640
+* `r`: video ratio; default 16:9
 * `yt`: YouTube ID, will insert note below video; default none.
 
 Variables are separated by '|', and none are required.
