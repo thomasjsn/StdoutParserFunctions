@@ -9,6 +9,12 @@ class StdoutParserFunctionsHooks {
     }
 
 
+    public static function onBeforePageDisplay( OutputPage $out, Skin $skin )
+    {
+        $out->addLink(['ref' => 'dns-prefetch', 'href' => 'https://video.stdout.no']);
+    }
+
+
     public static function renderHtmlVideo( Parser $parser, $param1 = '' )
     {
         parse_str(implode('&', array_slice(func_get_args(), 2)), $params);

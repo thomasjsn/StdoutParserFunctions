@@ -18,7 +18,8 @@
         "StdoutParserFunctionsMagic": "StdoutParserFunctions.i18n.php"
     },
     "Hooks": {
-        "ParserFirstCallInit": "StdoutParserFunctionsHooks::onParserFirstCallInit"
+        "ParserFirstCallInit": "StdoutParserFunctionsHooks::onParserFirstCallInit",
+        "BeforePageDisplay": "StdoutParserFunctionsHooks::onBeforePageDisplay"
     },
     "manifest_version": 1
 }
