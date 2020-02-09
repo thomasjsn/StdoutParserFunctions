@@ -11,7 +11,9 @@ class StdoutParserFunctionsHooks {
 
     public static function onBeforePageDisplay( OutputPage $out, Skin $skin )
     {
-        $out->addLink(['ref' => 'dns-prefetch', 'href' => 'https://video.stdout.no']);
+        $out->addLink(['rel' => 'preconnect', 'href' => 'https://static.stdout.no', 'crossorigin' => '']);
+        $out->addLink(['rel' => 'dns-prefetch', 'href' => 'https://static.stdout.no']);
+        $out->addLink(['rel' => 'dns-prefetch', 'href' => 'https://video.stdout.no']);
     }
 
 
