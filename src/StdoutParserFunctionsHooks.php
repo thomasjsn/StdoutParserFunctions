@@ -14,6 +14,7 @@ class StdoutParserFunctionsHooks {
         $out->addLink(['rel' => 'preconnect', 'href' => 'https://static.stdout.no', 'crossorigin' => '']);
         $out->addLink(['rel' => 'dns-prefetch', 'href' => 'https://static.stdout.no']);
         $out->addLink(['rel' => 'dns-prefetch', 'href' => 'https://video.stdout.no']);
+        $out->addScript('<script async defer data-domain="stdout.no" src="https://stats.stdout.no/js/index.js"></script>');
     }
 
 
