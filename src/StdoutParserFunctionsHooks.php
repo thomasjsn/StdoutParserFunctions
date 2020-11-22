@@ -6,15 +6,16 @@ class StdoutParserFunctionsHooks {
     {
         $parser->setFunctionHook( 'htmlvideo', [ self::class, 'renderHtmlVideo' ] );
         $parser->setFunctionHook( 'partslist', [ self::class, 'renderPartsList' ] );
+        $parser->setFunctionHook( 'youtube', [ self::class, 'renderYoutube' ] );
     }
 
 
     public static function onBeforePageDisplay( OutputPage $out, Skin $skin )
     {
-        $out->addLink(['rel' => 'preconnect', 'href' => 'https://static.stdout.no', 'crossorigin' => '']);
-        $out->addLink(['rel' => 'dns-prefetch', 'href' => 'https://static.stdout.no']);
+        #$out->addLink(['rel' => 'preconnect', 'href' => 'https://static.stdout.no', 'crossorigin' => '']);
+        #$out->addLink(['rel' => 'dns-prefetch', 'href' => 'https://static.stdout.no']);
         $out->addLink(['rel' => 'dns-prefetch', 'href' => 'https://video.stdout.no']);
-        $out->addScript('<script async defer data-domain="stdout.no" src="https://stats.stdout.no/js/index.js"></script>');
+        $out->addScript('<script async defer data-domain="cavelab.dev" src="https://plausible.io/js/plausible.js"></script>');
     }
 
 
@@ -34,7 +35,7 @@ class StdoutParserFunctionsHooks {
         $file = explode('/', $param1)[0];
 
         $output = "<div style=\"margin:1em 0\">";
-        $output .= "<video width=\"$w\" height=\"$h\" poster=\"https://static.stdout.no/images/video/$dir/${file}_${params['t']}.jpg\" controls preload=\"metadata\">";
+        $output .= "<video width=\"$w\" height=\"$h\" poster=\"/images/video/$dir/${file}_${params['t']}.jpg\" controls preload=\"metadata\">";
         $output .= "<source src=\"https://video.stdout.no/$dir/$file.webm\" type=\"video/webm; codecs=vp9,vorbis\">";
         $output .= "<source src=\"https://video.stdout.no/$dir/$file.mp4\" type=\"video/mp4\">";
         $output .= "</video>";
@@ -87,5 +88,12 @@ class StdoutParserFunctionsHooks {
 
 
         return implode("\n", $output);
+    }
+
+
+    public static function renderYoutube( Parser $parser, $param1 = '') {
+        $embed = "<div class=\"video-container\"><iframe src=\"https://www.youtube-nocookie.com/embed/${param1}\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>";
+
+        return [ $embed, 'noparse' => true, 'isHTML' => true ];
     }
 }
