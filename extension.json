@@ -21,5 +21,19 @@
         "ParserFirstCallInit": "StdoutParserFunctionsHooks::onParserFirstCallInit",
         "BeforePageDisplay": "StdoutParserFunctionsHooks::onBeforePageDisplay"
     },
+	"ResourceModules": {
+		"ext.stdoutParser.video": {
+			"scripts": [
+				"videojs/video.js"
+			],
+			"styles": [
+				"videojs/video-js.css"
+			]
+		}
+	},
+	"ResourceFileModulePaths": {
+        "localBasePath": "resources",
+        "remoteExtPath": "StdoutParserFunctions/resources"
+    },
     "manifest_version": 1
 }
