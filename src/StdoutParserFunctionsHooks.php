@@ -23,7 +23,7 @@ class StdoutParserFunctionsHooks {
     {
         $video = [
             'id="my-video"',
-            'class="video-js"',
+            'class="video-js vjs-fluid"',
             'controls',
             'preload="auto"'.
             'width="640"',
@@ -32,9 +32,11 @@ class StdoutParserFunctionsHooks {
             'data-setup="{}"'
         ];
 
-        $output = "<video ". implode(' ', $video) . ">";
+        $output = "<div style=\"max-width:640px;max-height:100%\">";
+        $output .= "<video ". implode(' ', $video) . ">";
         $output .= "<source type=\"application/x-mpegURL\" src=\"https://stream.mux.com/" . $param1 . ".m3u8\">";
         $output .= "</video>";
+        $output .= "</div>";
 
         $parser->getOutput()->addModules('ext.stdoutParser.video');
         $parser->getOutput()->addModuleStyles('ext.stdoutParser.video');
