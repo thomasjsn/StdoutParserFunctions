@@ -6,6 +6,7 @@ class StdoutParserFunctionsHooks {
     {
         $parser->setFunctionHook( 'htmlvideo', [ self::class, 'renderHtmlVideo' ] );
         $parser->setFunctionHook( 'partslist', [ self::class, 'renderPartsList' ] );
+        $parser->setFunctionHook( 'youtube', [ self::class, 'renderYoutube' ] );
     }
 
 
@@ -19,7 +20,7 @@ class StdoutParserFunctionsHooks {
     {
         parse_str(implode('&', array_slice(func_get_args(), 2)), $params);
 
-        if (! array_key_exists('t', $params)) $params['t'] = 3;
+        #if (! array_key_exists('t', $params)) $params['t'] = 3;
         if (! array_key_exists('w', $params)) $params['w'] = '640';
         if (! array_key_exists('r', $params)) $params['r'] = '16:9';
 
@@ -27,18 +28,18 @@ class StdoutParserFunctionsHooks {
         $w = str_replace('px', '', $params['w']);
         $h = $w / ($r[0] / $r[1]);
 
-        $dir = $param1;
-        $file = explode('/', $param1)[0];
+        #$dir = $param1;
+        #$file = explode('/', $param1)[0];
 
         $output = "<div style=\"margin:1em 0\">";
-        $output .= "<video width=\"$w\" height=\"$h\" poster=\"https://video.stdout.no/$dir/${file}_${params['t']}.jpg\" controls preload=\"metadata\">";
-        $output .= "<source src=\"https://video.stdout.no/$dir/$file.webm\" type=\"video/webm; codecs=vp9,vorbis\">";
-        $output .= "<source src=\"https://video.stdout.no/$dir/$file.mp4\" type=\"video/mp4\">";
+        $output .= "<video width=\"$w\" height=\"$h\" poster=\"/videos/$param1.jpg\" controls preload=\"metadata\">";
+        #$output .= "<source src=\"https://video.stdout.no/$dir/$file.webm\" type=\"video/webm; codecs=vp9,vorbis\">";
+        $output .= "<source src=\"/videos/$param1\" type=\"video/mp4\">";
         $output .= "</video>";
 
-        if (array_key_exists('yt', $params)) {
-            $output .= "<small>This video is also available on <a class=\"external\" href=\"https://www.youtube.com/watch?v=${params['yt']}\">YouTube</a>.</small>";
-        }
+        #if (array_key_exists('yt', $params)) {
+        #    $output .= "<small>This video is also available on <a class=\"external\" href=\"https://www.youtube.com/watch?v=${params['yt']}\">YouTube</a>.</small>";
+        #}
 
         $output .= "</div>";
 
@@ -84,5 +85,34 @@ class StdoutParserFunctionsHooks {
 
 
         return implode("\n", $output);
+    }
+
+
+    public static function renderYoutube( Parser $parser, $param1 = '') {
+        $embed = "<div class=\"video-container\"><iframe src=\"https://www.youtube-nocookie.com/embed/${param1}\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen loading=\"lazy\"></iframe></div>";
+
+        return [ $embed, 'noparse' => true, 'isHTML' => true ];
+    }
+
+
+    public static function renderFooter( Article $article ) {
+        $out = $article->getContext()->getOutput();
+        $title = $out->getTitle();
+        $ns = $title->getNamespace();
+
+        if ($ns === 0 && $title != 'Main Page') {
+            $utterances = [
+                'src="https://utteranc.es/client.js"',
+                'repo="thomasjsn/comments-test"',
+                'issue-term="ArticleID: ' . $title->getArticleID() . '"',
+                'theme="github-light"',
+                'crossorigin="anonymous"'
+            ];
+
+            $out->addHTML( '<h2>Comments</h2>' );
+            $out->addHTML( '<script ' . implode(' ', $utterances) . ' async> </script>' );
+        }
+
+        return true;
     }
 }
