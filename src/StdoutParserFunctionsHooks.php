@@ -7,6 +7,7 @@ class StdoutParserFunctionsHooks {
         $parser->setFunctionHook( 'htmlvideo', [ self::class, 'renderHtmlVideo' ] );
         $parser->setFunctionHook( 'partslist', [ self::class, 'renderPartsList' ] );
         $parser->setFunctionHook( 'youtube', [ self::class, 'renderYoutube' ] );
+        $parser->setFunctionHook( 'asciinema', [ self::class, 'renderAsciinema' ] );
     }
 
 
@@ -28,13 +29,13 @@ class StdoutParserFunctionsHooks {
             'preload="auto"'.
             'width="640"',
             'height="360"',
-            'poster="https://image.mux.com/' . $param1 . '/thumbnail.png?width=640&height=360"',
+            'poster="https://cavelab-vid.b-cdn.net/' . $param1 . '/thumbnail_001.jpg"',
             'data-setup="{}"'
         ];
 
         $output = "<div style=\"max-width:640px;max-height:100%\">";
         $output .= "<video ". implode(' ', $video) . ">";
-        $output .= "<source type=\"application/x-mpegURL\" src=\"https://stream.mux.com/" . $param1 . ".m3u8\">";
+        $output .= "<source type=\"application/x-mpegURL\" src=\"https://cavelab-vid.b-cdn.net/" . $param1 . "/playlist.m3u8\">";
         $output .= "</video>";
         $output .= "</div>";
 
@@ -121,5 +122,13 @@ class StdoutParserFunctionsHooks {
         $embed = "<div class=\"video-container\"><iframe src=\"https://www.youtube-nocookie.com/embed/${param1}\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe></div>";
 
         return [ $embed, 'noparse' => true, 'isHTML' => true ];
+    }
+
+
+    public static function renderAsciinema( Parser $parser, $param1 = '', $cols = 80, $rows = 24, $poster = '0:15') {
+        $parser->getOutput()->addModules('ext.stdoutParser.asciinema');
+        $parser->getOutput()->addModuleStyles('ext.stdoutParser.asciinema');
+
+        return [ "<asciinema-player src=\"$param1\" cols=\"$cols\" rows=\"$rows\" poster=\"npt:$poster\" preload></asciinema-player>", 'noparse' => true, 'isHTML' => true ];
     }
 }

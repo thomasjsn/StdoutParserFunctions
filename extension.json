@@ -29,6 +29,14 @@
 			"styles": [
 				"videojs/video-js.css"
 			]
+		},
+		"ext.stdoutParser.asciinema": {
+			"scripts": [
+				"asciinema/asciinema-player.js"
+			],
+			"styles": [
+				"asciinema/asciinema-player.css"
+			]
 		}
 	},
 	"ResourceFileModulePaths": {
