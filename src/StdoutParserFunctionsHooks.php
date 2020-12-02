@@ -20,21 +20,27 @@ class StdoutParserFunctionsHooks {
     }
 
 
-    public static function renderHtmlVideo( Parser $parser, $param1 = '' )
+    public static function renderHtmlVideo( Parser $parser, $param1 = '', $thumb = 1 )
     {
+        if (empty($param1)) {
+            return 'ERROR: No video file specified!';
+        }
+
+        $thumb = sprintf('%03d', $thumb);
+
         $video = [
-            'id="my-video"',
-            'class="video-js vjs-fluid"',
-            'controls',
-            'preload="auto"'.
-            'width="640"',
-            'height="360"',
-            'poster="https://cavelab-vid.b-cdn.net/' . $param1 . '/thumbnail_001.jpg"',
-            'data-setup="{}"'
+            "id=\"my-video\"",
+            "class=\"video-js vjs-fluid\"",
+            "controls",
+            "preload=\"auto\"".
+            "width=\"640\"",
+            "height=\"360\"",
+            "poster=\"https://cavelab-vid.b-cdn.net/${param1}/thumbnail_${thumb}.jpg\"",
+            "data-setup=\"{}\""
         ];
 
         $output = "<div style=\"max-width:640px;max-height:100%\">";
-        $output .= "<video ". implode(' ', $video) . ">";
+        $output .= "<video " . implode(' ', $video) . ">";
         $output .= "<source type=\"application/x-mpegURL\" src=\"https://cavelab-vid.b-cdn.net/" . $param1 . "/playlist.m3u8\">";
         $output .= "</video>";
         $output .= "</div>";
@@ -126,9 +132,15 @@ class StdoutParserFunctionsHooks {
 
 
     public static function renderAsciinema( Parser $parser, $param1 = '', $cols = 80, $rows = 24, $poster = '0:15') {
+        if (empty($param1)) {
+            return 'ERROR: No asciicast file specified!';
+        }
+
         $parser->getOutput()->addModules('ext.stdoutParser.asciinema');
         $parser->getOutput()->addModuleStyles('ext.stdoutParser.asciinema');
 
-        return [ "<asciinema-player src=\"$param1\" cols=\"$cols\" rows=\"$rows\" poster=\"npt:$poster\" preload></asciinema-player>", 'noparse' => true, 'isHTML' => true ];
+        $output = "<asciinema-player src=\"$param1\" cols=\"$cols\" rows=\"$rows\" poster=\"npt:$poster\" preload></asciinema-player>";
+
+        return [ $output, 'noparse' => true, 'isHTML' => true ];
     }
 }
