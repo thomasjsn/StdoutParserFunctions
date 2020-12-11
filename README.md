@@ -1,6 +1,6 @@
 # StdoutParserFunctions
 
-Custom MediaWiki parserhook extension for https://www.stdout.no
+> Custom MediaWiki parserhook extension for https://cavelab.dev
 
 ## Installation
 * Clone this repository in s directory called `StdoutParserFunctions` in your `extensions/` folder.
@@ -16,28 +16,25 @@ wfLoadExtension( 'StdoutParserFunctions' );
 Insert HTML5 video element.
 
 ```
-{{#htmlvideo: Video-file-without-extension(/subdir)|t=3|w=640}}
+{{#htmlvideo: video-file|parameter=value}}
 ```
 
 Expected directory structure;
 ```
-/VID_20191118_222156/(240p/)
-    VID_20191118_222156_1.jpg
-    VID_20191118_222156_2.jpg
-    VID_20191118_222156_3.jpg
-    VID_20191118_222156_4.jpg
-    VID_20191118_222156_5.jpg
-    VID_20191118_222156.mp4
-    VID_20191118_222156.webm
+/video-file/
+    playlist.m3u8
+    thumbnail_001.jpg
 ```
 
-Variables:
-* `t`: thumbnail number; default 3
-* `w`: video max width; default 640
-* `r`: video ratio; default 16:9
-* `yt`: YouTube ID, will insert note below video; default none.
+Parameters:
+* `thumb`: thumbnail number; default 1
+* `name`: vidoe name
+* `desc`: video description
+* `date`: video upload date
 
-Variables are separated by '|', and none are required.
+Parameters are separated by '|', and none are required.
+
+If parameters `name`, `desc` and `date` are present, a video object will be defined.
 
 ### `partslist`
 Insert project parts list from json file.
@@ -47,4 +44,10 @@ Insert project parts list from json file.
 ```
 
 ## Author
-[Thomas Jensen](https://thomas.stdout.no)
+**Thomas Jensen**
+* Twitter: [@thomasjsn](https://twitter.com/thomasjsn)
+* Github: [@thomasjsn](https://github.com/thomasjsn)
+* Website: [cavelab.dev](https://cavelab.dev/wiki/User:Thomas)
+
+## License
+The MIT License (MIT). Please see [license file](LICENSE.txt) for more information.
