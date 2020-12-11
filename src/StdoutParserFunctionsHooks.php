@@ -20,30 +20,52 @@ class StdoutParserFunctionsHooks {
     }
 
 
-    public static function renderHtmlVideo( Parser $parser, $param1 = '', $thumb = 1 )
+    public static function renderHtmlVideo( Parser $parser, $param1 = '' )
     {
         if (empty($param1)) {
             return 'ERROR: No video file specified!';
         }
 
-        $thumb = sprintf('%03d', $thumb);
+        parse_str(implode('&', array_slice(func_get_args(), 2)), $params);
+
+        $thumb = sprintf('%03d', $params['thumb'] ?? 1);
+        $poster = "https://cavelab-vid.b-cdn.net/${param1}/thumbnail_${thumb}.jpg";
+
+        $width = 640;
+        $height = 360;
 
         $video = [
             "id=\"my-video\"",
             "class=\"video-js vjs-fluid\"",
             "controls",
             "preload=\"auto\"".
-            "width=\"640\"",
-            "height=\"360\"",
-            "poster=\"https://cavelab-vid.b-cdn.net/${param1}/thumbnail_${thumb}.jpg\"",
+            "width=\"$width\"",
+            "height=\"$height\"",
+            "poster=\"$poster\"",
             "data-setup=\"{}\""
         ];
 
-        $output = "<div style=\"max-width:640px;max-height:100%\">";
+        $content = "https://cavelab-vid.b-cdn.net/${param1}/playlist.m3u8";
+
+        $output = "<div style=\"max-width:${width}px;max-height:100%\">";
         $output .= "<video " . implode(' ', $video) . ">";
-        $output .= "<source type=\"application/x-mpegURL\" src=\"https://cavelab-vid.b-cdn.net/" . $param1 . "/playlist.m3u8\">";
+        $output .= "<source type=\"application/x-mpegURL\" src=\"$content\">";
         $output .= "</video>";
         $output .= "</div>";
+
+        $videoObject = json_encode([
+            "@context" => "https://schema.org",
+            "@type" => "VideoObject",
+            "name" => $params['name'],
+            "description" => $params['desc'],
+            "thumbnailUrl" => [ $poster ],
+            "uploadDate" => $params['date'],
+            "contentUrl" => $content
+        ], JSON_PRETTY_PRINT);
+
+        if (isset($params['name'], $params['desc'], $params['date'])) {
+            $parser->getOutput()->addHeadItem("<script type=\"application/ld+json\">$videoObject</script>");
+        }
 
         $parser->getOutput()->addModules('ext.stdoutParser.video');
         $parser->getOutput()->addModuleStyles('ext.stdoutParser.video');
