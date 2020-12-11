@@ -28,7 +28,7 @@ Expected directory structure;
 
 Parameters:
 * `thumb`: thumbnail number; default 1
-* `name`: vidoe name
+* `name`: video name
 * `desc`: video description
 * `date`: video upload date
 
