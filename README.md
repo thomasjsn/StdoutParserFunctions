@@ -32,7 +32,7 @@ Parameters:
 * `desc`: video description
 * `date`: video upload date
 
-Parameters are separated by '|', and none are required.
+Parameters are separated by `|`, and none are required.
 
 If parameters `name`, `desc` and `date` are present, a video object will be defined.
 
