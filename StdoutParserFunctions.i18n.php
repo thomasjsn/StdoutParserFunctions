@@ -1,13 +1,13 @@
 <?php
 /**
  * @license GPL-2.0-or-later
- * @author Your Name (YourUserName)
+ * @author Thomas Jensen (thomasjsn)
  */
 
 $magicWords = [];
 
 /** English
- * @author Your Name (YourUserName)
+ * @author Thomas Jensen (thomasjsn)
  */
 $magicWords['en'] = [
     'htmlvideo' => [ 0, 'htmlvideo' ],
