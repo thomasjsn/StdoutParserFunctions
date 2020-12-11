@@ -27,7 +27,7 @@ Expected directory structure;
 ```
 
 Parameters:
-* `thumb`: thumbnail number; default 1
+* `thumb`: thumbnail number; default `1`
 * `name`: video name
 * `desc`: video description
 * `date`: video upload date
@@ -42,6 +42,25 @@ Insert project parts list from json file.
 ```
 {{#partslist: serialno}}
 ```
+
+### `youtube`
+Insert YouTube embedded video.
+
+```
+{{#youtube: video-id}}
+```
+
+### `asciinema`
+Insert asciicast video player.
+
+```
+{{#asciinema: cast-url|cols|rows|poster}}
+```
+
+Parameters:
+* `cols`: columns; default `80`
+* `rows`: rows; default `24`
+* `poster`: poster timestamp; default `0:15`
 
 ## Author
 **Thomas Jensen**
